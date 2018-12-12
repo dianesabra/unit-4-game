@@ -24,6 +24,8 @@
         var ticketCounter = 0;
         var imageSelected = false;
         var carSelected = false;
+        var selectedImage = "";
+        var audioElement = document.createElement("audio");
         var carOptions = ["family", "sports"];
         var locationOptions = ["winter", "farm", "mountains"];
 
@@ -51,14 +53,14 @@
         }
 
         $(".car-image1").on("click", function() {
-            var selectedImage = ($(this).attr("class"));
+            selectedImage = ($(this).attr("class"));
             $(".car-image2").css("position", "relative");
             $(".car-image2").animate({ left: "+=400px"}, "normal");
             carSelected = true;
         });
 
         $(".car-image2").on("click", function() {
-            var selectedImage = ($(this).attr("class"));
+            selectedImage = ($(this).attr("class"));
             $(".car-image1").css("position", "relative");
             $(".car-image1").animate({ left: "+=620px"}, "normal");
             carSelected = true;
@@ -126,11 +128,25 @@
             if (carSpeed > speedLimit){
                 ticketCounter += 1;
                 $("#ticket-counter").text("You have " + ticketCounter + " ticket(s).");
+                audioElement.setAttribute("src", "assets/sounds/honk.wav");
+                audioElement.play();
             }
             if (ticketCounter === 5){
                 $(selectedImage).css("position", "relative");
                 $(selectedImage).animate({ left: "+=400px"}, "normal");
+                audioElement.setAttribute("src", "assets/sounds/police.wav");
+                audioElement.play();
             }
+                // Theme Button
+                   // Gets Link for Theme Song
+            
+            
+            
+                
+            // });
+            // $(".pause-button").on("click", function() {
+            // audioElement.pause();
+            // });
         });
     </script>
 </body>
