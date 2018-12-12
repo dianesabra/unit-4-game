@@ -10,7 +10,18 @@
     <style>
         div{
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 20px;
         }
+        button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            }
     </style>
     <div id="car-options">Car Choice: </div>
     <div id="location-options">Location Choice: </div>
@@ -19,12 +30,13 @@
     <div id="driving-result"></div>
     <div id="speed-limit"></div>
     <div id="ticket-counter"></div>
+    <div id="bank-money"></div>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
         var ticketCounter = 0;
         var imageSelected = false;
         var carSelected = false;
-        var selectedImage = "";
+        var moneyInBank = 100;
         var audioElement = document.createElement("audio");
         var carOptions = ["family", "sports"];
         var locationOptions = ["winter", "farm", "mountains"];
@@ -53,17 +65,25 @@
         }
 
         $(".car-image1").on("click", function() {
-            selectedImage = ($(this).attr("class"));
             $(".car-image2").css("position", "relative");
             $(".car-image2").animate({ left: "+=400px"}, "normal");
+            $(".car-image2").fadeOut("slow");
             carSelected = true;
+            $(this).css({
+                "position": "relative",
+                "border": "5px solid"
+            });
         });
 
         $(".car-image2").on("click", function() {
-            selectedImage = ($(this).attr("class"));
             $(".car-image1").css("position", "relative");
             $(".car-image1").animate({ left: "+=620px"}, "normal");
+            $(".car-image1").fadeOut("slow");
             carSelected = true;
+            $(this).css({
+                "position": "relative",
+                "border": "5px solid"
+            });
         });
 
         for (var i = 0; i < locationOptions.length;i++){
@@ -117,36 +137,37 @@
         
         $("#drive-me").on("click", function() {
             if (imageSelected !== true){
-                alert("Please select a car first.")
+                alert("Please select a location first.")
                 error();
             }
             var speedLimit = Math.floor(Math.random() * 60) + 45;
             var carSpeed = Math.floor(Math.random() * 60) + 45;
             $("#driving-result").text("You are driving " + carSpeed + " mph.");
             $("#speed-limit").text("The speed limit is " + speedLimit + " mph.");
-            // $("#car-options").css({color: "white"});
             if (carSpeed > speedLimit){
                 ticketCounter += 1;
                 $("#ticket-counter").text("You have " + ticketCounter + " ticket(s).");
                 audioElement.setAttribute("src", "assets/sounds/honk.wav");
                 audioElement.play();
+                moneyInBank = moneyInBank - 20;
+                $("#bank-money").text("You have $" + speedLimit + " remaining in your bank.");
             }
             if (ticketCounter === 5){
-                $(selectedImage).css("position", "relative");
-                $(selectedImage).animate({ left: "+=400px"}, "normal");
                 audioElement.setAttribute("src", "assets/sounds/police.wav");
                 audioElement.play();
+                $("#bodyid").css({
+                    "background-image":'url("assets/images/jailtime.jpg")',
+                    "background-repeat":"no-repeat",
+                    "width": "100%",
+                    "height": "auto"
+                });
+                $("#car-options").empty();
+                $("#drive-me").remove();
+                $("#driving-result").empty();
+                $("#speed-limit").empty();
+                $("#ticket-counter").empty();
+                $("#bank-money").empty();
             }
-                // Theme Button
-                   // Gets Link for Theme Song
-            
-            
-            
-                
-            // });
-            // $(".pause-button").on("click", function() {
-            // audioElement.pause();
-            // });
         });
     </script>
 </body>
