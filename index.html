@@ -4,25 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Speeding Game</title>
+    <link rel="shortcut icon" type="image/jpg" href="assets/images/icon.jpg" />
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 </head>
 <body id="bodyid">
-    <style>
-        div{
-            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-            font-size: 20px;
-        }
-        button {
-            background-color: #4CAF50; /* Green */
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            }
-    </style>
     <div id="car-options">Car Choice: </div>
     <div id="location-options">Location Choice: </div>
     <br>
@@ -31,144 +18,8 @@
     <div id="speed-limit"></div>
     <div id="ticket-counter"></div>
     <div id="bank-money"></div>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script>
-        var ticketCounter = 0;
-        var imageSelected = false;
-        var carSelected = false;
-        var moneyInBank = 100;
-        var audioElement = document.createElement("audio");
-        var carOptions = ["family", "sports"];
-        var locationOptions = ["winter", "farm", "mountains"];
-
-        for (var i = 0; i < carOptions.length;i++){
-            var carImage = $("<img>");
-            switch (i){
-                case 0:
-                carImage.attr({
-                    "src":"assets/images/car1.png",
-                    "class":"car-image1",
-                    "car-value": carOptions[i]
-                });
-                break;
-
-                case 1:
-                carImage.attr({
-                        "src":"assets/images/car2.jpg",
-                        "class":"car-image2",
-                        "car-value": carOptions[i]
-                    });
-                break;
-            };
-            carImage.css({height: "160px", width: "220px"})
-            $("#car-options").append(carImage);
-        }
-
-        $(".car-image1").on("click", function() {
-            $(".car-image2").css("position", "relative");
-            $(".car-image2").animate({ left: "+=400px"}, "normal");
-            $(".car-image2").fadeOut("slow");
-            carSelected = true;
-            $(this).css({
-                "position": "relative",
-                "border": "5px solid"
-            });
-        });
-
-        $(".car-image2").on("click", function() {
-            $(".car-image1").css("position", "relative");
-            $(".car-image1").animate({ left: "+=620px"}, "normal");
-            $(".car-image1").fadeOut("slow");
-            carSelected = true;
-            $(this).css({
-                "position": "relative",
-                "border": "5px solid"
-            });
-        });
-
-        for (var i = 0; i < locationOptions.length;i++){
-            var locationImage = $("<img>");
-            switch (i){
-                case 0:
-                locationImage.attr({
-                    "src":"assets/images/winter.jpg",
-                    "class":"location-image",
-                    "location-value": locationOptions[i]
-                });
-                break;
-
-                case 1:
-                    locationImage.attr({
-                        "src":"assets/images/farm.jpg",
-                        "class":"location-image",
-                        "location-value": locationOptions[i]
-                    });
-                break;
-
-                case 2:
-                    locationImage.attr({
-                        "src":"assets/images/mountains.jpg",
-                        "class":"location-image",
-                        "location-value": locationOptions[i]
-                    });
-                break;
-            };
-            locationImage.css({height: "160px", width: "220px"})
-            $("#location-options").append(locationImage);
-        }
-
-        $(".location-image").on("click",function(){
-            debugger
-            if (carSelected !== true){
-                alert("Please select a car first.");
-                error();
-            }
-            var backgroundImage = ($(this).attr("src"));
-            $("#bodyid").css({
-                "background-image":'url(' + backgroundImage + ')',
-                "background-repeat":"no-repeat",
-                "width": "100%",
-                "height": "auto"
-            });
-            $("div").css({color: "white"});
-            $("#location-options").empty();
-            imageSelected = true;
-        });
-        
-        $("#drive-me").on("click", function() {
-            if (imageSelected !== true){
-                alert("Please select a location first.")
-                error();
-            }
-            var speedLimit = Math.floor(Math.random() * 60) + 45;
-            var carSpeed = Math.floor(Math.random() * 60) + 45;
-            $("#driving-result").text("You are driving " + carSpeed + " mph.");
-            $("#speed-limit").text("The speed limit is " + speedLimit + " mph.");
-            if (carSpeed > speedLimit){
-                ticketCounter += 1;
-                $("#ticket-counter").text("You have " + ticketCounter + " ticket(s).");
-                audioElement.setAttribute("src", "assets/sounds/honk.wav");
-                audioElement.play();
-                moneyInBank = moneyInBank - 20;
-                $("#bank-money").text("You have $" + speedLimit + " remaining in your bank.");
-            }
-            if (ticketCounter === 5){
-                audioElement.setAttribute("src", "assets/sounds/police.wav");
-                audioElement.play();
-                $("#bodyid").css({
-                    "background-image":'url("assets/images/jailtime.jpg")',
-                    "background-repeat":"no-repeat",
-                    "width": "100%",
-                    "height": "auto"
-                });
-                $("#car-options").empty();
-                $("#drive-me").remove();
-                $("#driving-result").empty();
-                $("#speed-limit").empty();
-                $("#ticket-counter").empty();
-                $("#bank-money").empty();
-            }
-        });
-    </script>
+    <button id="reset-game">Reset</button>
 </body>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="assets/javascript/game.js"></script>
 </html>
