@@ -176,6 +176,7 @@ function showDriveButton() {
 
 function showResetButton() {
   $("#reset-game").css("visibility", "visible");
+  $(".car-title").css("visibility", "hidden");
   $("#drive-me").css("visibility", "hidden");
   $("#reset-game").on("click", function() {
     initializeGame();
