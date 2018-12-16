@@ -85,7 +85,7 @@ function initializeGame() {
 initializeGame();
 
 function showLocations() {
-  $("#car-optionsdiv").fadeOut("slow"); // css("visibility", "hidden");
+  $("#car-optionsdiv").fadeOut("slow");
   $(".location-card").css("visibility", "visible");
   if (locationSelected === false) {
     for (var i = 0; i < locationOptions.length; i++) {
